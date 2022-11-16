@@ -1,3 +1,8 @@
-import { app } from "./app";
+import cors from 'cors';
+import express from 'express';
 
-app.listen("3333");
+const server = express();
+server.use(express.json());
+server.use(cors());
+
+export default server
