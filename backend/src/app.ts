@@ -1,28 +1,13 @@
+import { AppDataSource } from "./data-source";
 import express from "express";
 import cors from "cors";
 
-class App {
-  public express: express.Application;
+AppDataSource.initialize().then(() => {
+  const app = express();
 
-  constructor() {
-    this.express = express();
-    this.middlewares();
-    this.database();
-    this.routes();
-  }
+  app.use(express.json());
+  app.use(cors());
+  app.use('/', (req, res) => res.send('hello'));
 
-  private middlewares(): void {
-    this.express.use(express.json());
-    this.express.use(cors());
-  }
-
-  private database(): void {}
-
-  private routes(): void {
-    this.express.get("/", (req, res) => {
-      return res.send("hello");
-    });
-  }
-}
-
-export default new App().express;
+  return app.listen(process.env.port);
+});
