@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 import "dotenv/config";
-import "reflect-metadata"
+import "reflect-metadata";
 
 const port = process.env.TYPEORM_PORT as number | any;
 
@@ -17,4 +17,3 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: false,
 });
-
