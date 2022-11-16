@@ -1,5 +1,5 @@
 import { Users } from "../../../entities/Users";
 
 export interface CreateUserUseCase {
-    execute(User: Users): Promise<boolean>;
+    execute(User: Users): Promise<Users>;
 }

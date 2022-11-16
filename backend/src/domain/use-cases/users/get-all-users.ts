@@ -1,15 +1,15 @@
-import { GetAllUsersUseCase } from './../../interfaces/use-cases/users/get-all-users';
+import { UsersDataRepository } from "../../../data/interfaces/users-data-source";
 import { Users } from "../../entities/Users";
 import { UsersRepository } from "../../interfaces/repositories/users-repository";
+import { GetAllUsersUseCase } from "../../interfaces/use-cases/users/get-all-users";
 
-export class GetAllUsers implements GetAllUsersUseCase {
-    usersRepository: UsersRepository
-    constructor(usersRepository: UsersRepository) {
-        this.usersRepository = usersRepository
+export class GetAllUser implements GetAllUsersUseCase {
+    UsersDataRepository: UsersRepository
+    constructor(UsersDataRepository: UsersRepository) {
+        this.UsersDataRepository = UsersDataRepository
     }
 
     async execute(): Promise<Users[]> {
-        const result = await this.usersRepository.getUsers()
-        return result
+        return UsersDataRepository.find();
     }
 }

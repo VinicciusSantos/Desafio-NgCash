@@ -1,16 +1,16 @@
+import { UsersDataRepository } from '../../../data/interfaces/users-data-source';
+import { Users } from '../../entities/Users';
+import { UserRequestModel } from '../../models/users-model';
+import { UsersRepository } from './../../interfaces/repositories/users-repository';
 import { CreateUserUseCase } from './../../interfaces/use-cases/users/create-user';
-import { Users } from "../../entities/Users";
-import { UsersRepository } from "../../interfaces/repositories/users-repository";
-
 
 export class CreateUser implements CreateUserUseCase {
-   usersRepository: UsersRepository
-    constructor(usersRepository: UsersRepository) {
-        this.usersRepository = usersRepository
+    TransactionsDataRepository: UsersRepository
+    constructor(TransactionsDataRepository: UsersRepository) {
+        this.TransactionsDataRepository = TransactionsDataRepository
     }
 
-    async execute(user: Users): Promise<boolean> {
-        const result = await this.usersRepository.createUser(user)
-        return result
+    async execute(transaction: UserRequestModel): Promise<Users> {
+        return UsersDataRepository.save(transaction);
     }
 }

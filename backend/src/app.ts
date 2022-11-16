@@ -1,10 +1,8 @@
 import { AppDataSource } from "./data/data-sources/type-orm-data-source";
-import UsersRouter from "./presentation/routers/users-router";
+import { router } from "./presentation/routers";
 import server from "./server"; 
 
 AppDataSource.initialize().then(() => {
-  const UsersMiddleware = UsersRouter();
-  server.use("/users", UsersMiddleware)
-
+  server.use("/", router)
   return server.listen(process.env.port);
 });

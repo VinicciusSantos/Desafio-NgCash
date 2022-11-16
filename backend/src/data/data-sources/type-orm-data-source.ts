@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   host: process.env.TYPEORM_HOST,
   port: port,
   username: process.env.TYPEORM_USERNAME,
-  password: process.env.TYPEORM_PASSWORD,
+  password: `${process.env.TYPEORM_PASSWORD}`,
   database: process.env.TYPEORM_DATABASE,
   entities: [`${__dirname}/**/entities/*.{ts,js}`],
   migrations: [`${__dirname}/**/migrations/*.{ts,js}`],

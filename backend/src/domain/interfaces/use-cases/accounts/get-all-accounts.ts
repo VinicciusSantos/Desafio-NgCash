@@ -1,5 +1,5 @@
-import { Accounts } from "../../../entities/Accounts";
+import { AccountsResponseModel } from "../../../models/account-model";
 
 export interface GetAllAccountsUseCase { 
-    execute(): Promise<Accounts[]>; 
+    execute(): Promise<AccountsResponseModel[]>; 
 }
