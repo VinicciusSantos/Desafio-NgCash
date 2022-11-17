@@ -1,19 +1,29 @@
-import { Accounts } from './Accounts';
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne } from "typeorm"
+import { Accounts } from "./Accounts";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinColumn,
+  OneToOne,
+} from "typeorm";
+import { Min, IsNotEmpty } from "class-validator";
 
 @Entity()
 export class Users {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @Column({ unique: true })
+  @Min(3)
+  @IsNotEmpty()
+  username: string;
 
-    @Column()
-    username: string
+  @Column()
+  @Min(8)
+  @IsNotEmpty()
+  password: string;
 
-    @Column()
-    password: string
-
-    @OneToOne(() => Accounts)
-    @JoinColumn()
-    account: Accounts
+  @OneToOne(() => Accounts)
+  @JoinColumn()
+  account: Accounts;
 }

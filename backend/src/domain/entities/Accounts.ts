@@ -6,6 +6,6 @@ export class Accounts {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({default: 100})
     balance: number
 }
