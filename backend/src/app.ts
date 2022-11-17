@@ -4,5 +4,5 @@ import server from "./server";
 
 AppDataSource.initialize().then(() => {
   server.use("/", router)
-  return server.listen(process.env.port);
+  return server.listen(process.env.port || '3000');
 });

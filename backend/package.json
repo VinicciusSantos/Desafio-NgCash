@@ -1,10 +1,10 @@
 {
   "name": "backend",
   "version": "0.0.1",
-  "main": "src/server.ts",
+  "main": "src/app.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only src/server.ts",
+    "dev": "ts-node-dev --transpile-only src/app.ts",
     "start": "ts-node src/index.ts",
     "migration:generate": "typeorm-ts-node-commonjs -d ./src/data/data-sources/type-orm-data-source.ts migration:generate ./src/migrations/default",
     "migration:run": "typeorm-ts-node-commonjs -d ./src/data/data-sources/type-orm-data-source.ts migration:run",
