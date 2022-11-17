@@ -22,20 +22,20 @@
 - Receber username e password
 - Gerar Token JWT com 24 horas de duração
 
-### ```/my-account```
+### ```/account```
 - Mostrar o balance atual do usuario
 - Mostrar as transações que o usuario participou
 - O usuario deve ser identificado pelo token para evitar problemas
 
-### ```/cash-out```
-- Receber username de que for receber e valor
-- Usuario não pode transferir para ele mesmo
-- Usuario tem que ter saldo suficiente
-- gravar transação bem sucedida na tabela transacrions
-  
 ### ```/transactions```
 - Filtrar as transações:
   - Data de realização da transação
   - Transações de cash-out;
   - Transações de cash-in.
  
+### ```/transactions/cash-out```
+- Receber username de que for receber e valor
+- Usuario não pode transferir para ele mesmo
+- Usuario tem que ter saldo suficiente
+- gravar transação bem sucedida na tabela transacrions
+  
