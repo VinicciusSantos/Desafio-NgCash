@@ -4,12 +4,13 @@ import { AccountsRepository } from './../../interfaces/repositories/accounts-rep
 import { CreateAccountUseCase } from './../../interfaces/use-cases/accounts/create-account';
 
 export class CreateAccount implements CreateAccountUseCase {
-    AccountsDataRepository: AccountsRepository
-    constructor(AccountsDataRepository: AccountsRepository) {
+    private AccountsDataRepository: any
+    constructor() {
         this.AccountsDataRepository = AccountsDataRepository
     }
 
     async execute(account: AccountsRequestModel): Promise<AccountsResponseModel> {
-        return AccountsDataRepository.save(account);
+        console.log("#")
+        return this.AccountsDataRepository.save(account);
     }
 }

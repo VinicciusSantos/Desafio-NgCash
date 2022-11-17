@@ -4,12 +4,13 @@ import { AccountsRepository } from './../../interfaces/repositories/accounts-rep
 import { GetAllAccountsUseCase } from './../../interfaces/use-cases/accounts/get-all-accounts';
 
 export class GetAllAccount implements GetAllAccountsUseCase {
-    AccountsDataRepository: AccountsRepository
-    constructor(AccountsDataRepository: AccountsRepository) {
+    AccountsDataRepository: any
+    constructor() {
         this.AccountsDataRepository = AccountsDataRepository
     }
 
     async execute(): Promise<AccountsResponseModel[]> {
-        return AccountsDataRepository.find();
+        console.log('teste')
+        return this.AccountsDataRepository.find();
     }
 }
