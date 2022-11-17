@@ -2,7 +2,7 @@
 
 ## Rotas:
 
-### ```/register```
+### ```/auth/register```
 - Criar user:
   - username
     - unique
@@ -18,7 +18,7 @@
 
 - Vincular Account com User
 
-### ```/login```
+### ```/auth/login```
 - Receber username e password
 - Gerar Token JWT com 24 horas de duração
 
