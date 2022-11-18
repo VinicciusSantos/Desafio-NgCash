@@ -9,5 +9,5 @@ export interface UserResponseModel {
   id: number;
   username: string;
   password: string;
-  accountId: Accounts
+  accountId?: Accounts
 }
