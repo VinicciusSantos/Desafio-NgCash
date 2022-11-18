@@ -24,9 +24,9 @@ export class RegisterUsecase implements IRegisterUsecase {
     if(!userValidation.sucess) throw new Error(userValidation.message)
 
     user.password = await this.CryptService.hashPassword(user.password)
-    const userResponse: UserResponseModel = await this.Users.save(user);
+    let userResponse: UserResponseModel = await this.Users.save(user);
 
-    user = await this.createAndAssignAccountToNewUser(userResponse)
+    userResponse = await this.createAndAssignAccountToNewUser(userResponse)
     return userResponse
   }
 
