@@ -6,7 +6,6 @@ import { UsersDataRepository } from "../../../data/repositories/users-data-sourc
 import { IRegisterUsecase } from "../../interfaces/use-cases/auth/register-interface";
 import { CryptService } from "../../services/crypt-service";
 import { ICryptService } from "../../interfaces/services/crypt-interface";
-import { Users } from '../../entities/Users';
 
 export class RegisterUsecase implements IRegisterUsecase {
   private Users: typeof UsersDataRepository;
@@ -20,7 +19,7 @@ export class RegisterUsecase implements IRegisterUsecase {
   }
 
   public async execute(user: UserRequestModel): Promise<any> {
-    const userValidation = await this.validateInputsWithSucess(user)
+    const userValidation = await this.validateInputs(user)
     if(!userValidation.sucess) throw new Error(userValidation.message)
 
     user.password = await this.CryptService.hashPassword(user.password)
@@ -30,7 +29,7 @@ export class RegisterUsecase implements IRegisterUsecase {
     return userResponse
   }
 
-  private async validateInputsWithSucess(user: RegisterRequestModel): Promise<{ sucess: boolean, message?: string }> {
+  private async validateInputs(user: RegisterRequestModel): Promise<{ sucess: boolean, message?: string }> {
     try {
       await this.CheckUsername(user.username);
       this.CheckPassword(user.password);
@@ -43,6 +42,8 @@ export class RegisterUsecase implements IRegisterUsecase {
   private async CheckUsername(username: string) {
     if (username.length < 3)
       throw new Error("Username should have 3+ characters");
+    const invalidUsername = !await this.isUsernameAvailable(username)
+    if(invalidUsername) throw new Error("Username is unavailable");
   }
 
   private CheckPassword(password: string) {
@@ -53,12 +54,18 @@ export class RegisterUsecase implements IRegisterUsecase {
       );
   }
 
+  private async isUsernameAvailable(username: string): Promise<boolean> {
+    let UsersWithThisUsername = await this.Users.findBy({ username })
+    return UsersWithThisUsername.length === 0
+  }
+
   private async createAndAssignAccountToNewUser(user: UserResponseModel): Promise<Accounts | any> {
-    const newAccount = await this.Accounts.save({})
-    this.Users.createQueryBuilder()
-    .update(user)
-    .set({ account: newAccount })
-    .where("id = :id", { id: user.id })
-    .execute()
+    const newAccount = await this.Accounts.save({ balance: 100 })
+    this.Users
+      .createQueryBuilder()
+      .update(user)
+      .set({ account: newAccount })
+      .where("id = :id", { id: user.id })
+      .execute()
   }
 }

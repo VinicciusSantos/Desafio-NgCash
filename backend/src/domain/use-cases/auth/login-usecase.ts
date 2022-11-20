@@ -19,10 +19,9 @@ export class LoginUsecase implements ILoginUsecase {
 
   async execute(input: LoginRequestModel): Promise<LoginResponseModel | string> {
     const user = await this.findUser(input.username);
-    if (!user) throw new Error('User not Found')
+    if (!user) throw new Error('Wrong Credentials')
 
     const isValidPassword = await this.CryptService.compareHash(input.password, user.password)
-    console.log("🚀 ~ file: login-usecase.ts ~ line 25 ~ LoginUsecase ~ execute ~ isValidPassword", isValidPassword)
     if (!isValidPassword) throw new Error('Wrong Credentials')
     
     return this.CryptService.generateToken({user})
