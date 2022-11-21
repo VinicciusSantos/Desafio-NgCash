@@ -27,6 +27,7 @@ export class CahsOutUsecase implements ICashOutUsecase {
             decodedToken = this.CryptService.decodeToken(userToken)
             let creditedUser = await this.getUserByUsername(creditedUsername)   
 
+            this.checkIfUserIsSelfCashing(decodedToken.user, creditedUser)
             await this.checkIfUserHaveEnougtMoney(decodedToken.user, value)
             await this.updateUsersBalance(decodedToken.user, creditedUser, value)
 
@@ -52,6 +53,10 @@ export class CahsOutUsecase implements ICashOutUsecase {
         const user = await this.Users.findOneBy({ username })
         if (!user) throw new Error(`User doesn't exists`)
         return user
+    }
+
+    private checkIfUserIsSelfCashing(debitedUser: Users, creditedUser: Users) {
+        if (debitedUser.id === creditedUser.id) throw new Error("You cannot transfer to yourself")
     }
 
     private async checkIfUserHaveEnougtMoney(user: Users, value: number): Promise<boolean | null> {

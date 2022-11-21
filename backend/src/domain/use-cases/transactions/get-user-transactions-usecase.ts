@@ -31,14 +31,14 @@ export class GetUserTransactionsUsecase implements IGetUserTransactionsUsecase {
 
   private async getCashInTransactions(user: Users) {
     return this.Transactions.find({
-        where: { creditedAccount: user },
+        where: { creditedAccountId: user },
         loadRelationIds: true
       });
   }
 
   private async getCashOutTransactions(user: Users) {
     return this.Transactions.find({
-        where: { debitedAccount: user },
+        where: { debitedAccountId: user },
         loadRelationIds: true
       });
   }
