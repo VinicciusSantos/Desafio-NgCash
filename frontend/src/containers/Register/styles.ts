@@ -51,9 +51,12 @@ export const StyledTextField = styled(TextField)`
   width: 90%;
   margin: 5px 0 !important;
 
+  .MuiInputBase-root {
+      background-color: #1c1c1c !important;
+  }
+
   * {
     border-color: #00000010 !important;
-    background-color: #1c1c1c !important;
     color: #ccc !important;
   }
 `;
