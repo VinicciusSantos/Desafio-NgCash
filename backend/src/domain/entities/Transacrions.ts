@@ -10,12 +10,12 @@ export class Transactions {
   @OneToOne(() => Users)
   @JoinColumn()
   @IsNotEmpty()
-  debitedAccountId: Users;
+  debitedAccount: Users;
 
   @OneToOne(() => Users)
   @JoinColumn()
   @IsNotEmpty()
-  creditedAccountId: Users;
+  creditedAccount: Users;
 
   @Column()
   @IsNotEmpty()

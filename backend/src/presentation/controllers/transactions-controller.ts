@@ -1,9 +1,12 @@
+import { CahsOutUsecase } from './../../domain/use-cases/transactions/cash-out-usecase';
+import { GetUserTransactionsUsecase } from './../../domain/use-cases/transactions/get-user-transactions-usecase';
 import { Request, Response } from "express";
 
 export class TransactionsController {
-  public async list(_: Request, res: Response) {
+  public async list(req: Request, res: Response) {
     try { 
-      return res.status(200)
+      const data = await new GetUserTransactionsUsecase().execute(req.headers.authorization)
+      return res.status(200).json({ message: `Successfully retrieved user's transactions`, data })
     } catch (err) {
       return res.status(400).json({
         message: 'Could not list transactions',
@@ -14,7 +17,8 @@ export class TransactionsController {
 
   public async cashOut(req: Request, res: Response) {
     try { 
-      return res.status(201)
+      const data = await new CahsOutUsecase().execute(req.headers.authorization, req.body.creditedUsername, req.body.value)
+      return res.status(201).json({ message: `Successfully retrieved data`, data })
     } catch (err) {
       return res.status(400).json({
         message: 'Could not do this transaction',
