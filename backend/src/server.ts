@@ -6,4 +6,4 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 server.use("/", router);
-export default server.listen(3333);
+export default server

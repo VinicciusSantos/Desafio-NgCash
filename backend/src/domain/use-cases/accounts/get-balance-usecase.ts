@@ -14,8 +14,12 @@ export class GetBalanceUsecase implements IGetBalanceUsecase {
 
     async execute(userToken: string | undefined): Promise<any> {
         if (!userToken) throw new Error("Unauthorized")
-        const decodedToken: IToken | any = this.CryptService.decodeToken(userToken)
-        console.log("🚀 ~ file: get-balance-usecase.ts ~ line 19 ~ GetBalanceUsecase ~ execute ~ decodedToken.user.id", decodedToken.user.id)
-        return this.Accounts.findOneBy({ id: decodedToken.user.account })
+        let decodedToken!: IToken | any;
+        try {
+            decodedToken = this.CryptService.decodeToken(userToken)
+            return this.Accounts.findOneBy({ id: decodedToken.user.account })
+        } catch (error) {
+            throw new Error(error.message)
+        }
     }
 }
