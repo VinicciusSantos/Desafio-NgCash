@@ -10,6 +10,7 @@ import {
   SubmitButton,
   LoginRedirect,
 } from './styles';
+import { Link } from 'react-router-dom';
 
 const Register: React.FC = () => {
   const [snackbarInfos, setSnackbarInfos] = useState({
@@ -32,7 +33,9 @@ const Register: React.FC = () => {
     e.preventDefault();
     api
       .post('/auth/register', registerData)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res.data);
+      })
       .catch((err) => {
         setSnackbarInfos({
           isOpen: true,
@@ -72,17 +75,22 @@ const Register: React.FC = () => {
         <SubmitButton onClick={(e: any) => onSubmit(e)}>Register</SubmitButton>
         <LoginRedirect>
           Already a member?
-          <a href="/login">Login here</a>
+          <Link to="/login">Login here</Link>
         </LoginRedirect>
       </FormContainer>
 
       <Snackbar
         open={snackbarInfos.isOpen}
         autoHideDuration={4000}
-        anchorOrigin={{ "horizontal": "left", "vertical": "top"}}
+        anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
+        <Alert
+          onClose={handleClose}
+          variant="filled"
+          severity="error"
+          sx={{ width: '100%' }}
+        >
           {snackbarInfos.message}
         </Alert>
       </Snackbar>

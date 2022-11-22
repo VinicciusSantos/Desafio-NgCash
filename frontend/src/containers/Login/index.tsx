@@ -10,8 +10,11 @@ import {
   SubmitButton,
   LoginRedirect,
 } from './styles';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
+  const navigate = useNavigate()
+  
   const [snackbarInfos, setSnackbarInfos] = useState({
     isOpen: false,
     message: '',
@@ -32,7 +35,11 @@ const Login: React.FC = () => {
     e.preventDefault();
     api
       .post('/auth/login', loginData)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem('token', res.data.token);
+        navigate('/')
+      })
       .catch((err) => {
         setSnackbarInfos({
           isOpen: true,
@@ -72,17 +79,22 @@ const Login: React.FC = () => {
         <SubmitButton onClick={(e: any) => onSubmit(e)}>Login</SubmitButton>
         <LoginRedirect>
           Not a member?
-          <a href="/login">Signup now</a>
+          <Link to="/register">Signup now</Link>
         </LoginRedirect>
       </FormContainer>
 
       <Snackbar
         open={snackbarInfos.isOpen}
         autoHideDuration={4000}
-        anchorOrigin={{ "horizontal": "left", "vertical": "top"}}
+        anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
+        <Alert
+          onClose={handleClose}
+          variant="filled"
+          severity="error"
+          sx={{ width: '100%' }}
+        >
           {snackbarInfos.message}
         </Alert>
       </Snackbar>
