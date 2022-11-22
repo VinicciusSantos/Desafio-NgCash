@@ -33,7 +33,7 @@ export const Container = styled.div`
   }
 `;
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   z-index: 1;
   background-color: #222;
   color: #eee;
