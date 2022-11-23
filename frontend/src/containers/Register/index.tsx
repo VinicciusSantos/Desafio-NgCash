@@ -10,12 +10,16 @@ import {
   SubmitButton,
   LoginRedirect,
 } from './styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
+  const navigate = useNavigate()
+
   const [snackbarInfos, setSnackbarInfos] = useState({
     isOpen: false,
     message: '',
+    type: '',
+    hideDuration: 3000
   });
   const [registerData, setRegisterData] = useState({
     username: '',
@@ -34,12 +38,20 @@ const Register: React.FC = () => {
     api
       .post('/auth/register', registerData)
       .then((res) => {
-        console.log(res.data);
+        setSnackbarInfos({
+          isOpen: true,
+          message: res.data.message + ' please, do login',
+          type: 'sucess',
+          hideDuration: 1500
+        });
+        setTimeout(() => navigate('/login'), 2000);
       })
       .catch((err) => {
         setSnackbarInfos({
           isOpen: true,
           message: err.response.data.error,
+          type: 'error',
+          hideDuration: 3000,
         });
       });
   };
@@ -49,6 +61,8 @@ const Register: React.FC = () => {
     setSnackbarInfos({
       isOpen: false,
       message: '',
+      type: 'error',
+      hideDuration: 3000
     });
   };
 
@@ -68,6 +82,7 @@ const Register: React.FC = () => {
           id="outlined-basic"
           name="password"
           label="Password"
+          type="password"
           value={registerData.password}
           onChange={(e) => handleChange(e)}
           variant="outlined"
@@ -81,14 +96,14 @@ const Register: React.FC = () => {
 
       <Snackbar
         open={snackbarInfos.isOpen}
-        autoHideDuration={4000}
+        autoHideDuration={snackbarInfos.hideDuration}
         anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
         onClose={handleClose}
       >
         <Alert
           onClose={handleClose}
           variant="filled"
-          severity="error"
+          severity={snackbarInfos.type === 'error' ? 'error' : 'success'}
           sx={{ width: '100%' }}
         >
           {snackbarInfos.message}

@@ -72,6 +72,7 @@ const Login: React.FC = () => {
           id="outlined-basic"
           name="password"
           label="Password"
+          type="password"
           value={loginData.password}
           onChange={(e) => handleChange(e)}
           variant="outlined"
