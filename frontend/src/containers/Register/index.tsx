@@ -37,7 +37,7 @@ const Register: React.FC = () => {
     e.preventDefault();
     api
       .post('/auth/register', registerData)
-      .then((res) => {
+      .then((res: any) => {
         setSnackbarInfos({
           isOpen: true,
           message: res.data.message + ' please, do login',
@@ -46,7 +46,7 @@ const Register: React.FC = () => {
         });
         setTimeout(() => navigate('/login'), 2000);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         setSnackbarInfos({
           isOpen: true,
           message: err.response.data.error,

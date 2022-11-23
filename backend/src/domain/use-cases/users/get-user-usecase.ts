@@ -13,6 +13,10 @@ export class GetUserUsecase implements IGetUserUsecase {
   }
 
   public async execute(userToken: string): Promise<any> {
-    return this.CryptService.decodeToken(userToken)['user']
+    const user = this.CryptService.decodeToken(userToken)['user']
+    return this.Users.findOne({
+      where: { id: user.id },
+      relations: ['account']
+    })
   }
 }
