@@ -11,3 +11,19 @@
     from { background-position: 0%; }
     to { background-position: 400%; }
 }
+
+.rainbow-background {
+    position: relative;
+    background: linear-gradient(
+    90deg,
+    #f9d923ee,
+    #00a19dee,
+    #0c87b7ee,
+    #cb49ffee,
+    #ff6666ee,
+    #f9d923ee
+  );
+  background-size: 400%;
+  animation: glow 55s linear infinite;
+  box-shadow: 2px 2px 2px #00000020;
+}

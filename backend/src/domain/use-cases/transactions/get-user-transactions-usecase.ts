@@ -21,8 +21,12 @@ export class GetUserTransactionsUsecase implements IGetUserTransactionsUsecase {
     let decodedToken!: IToken | any;
     try {
       decodedToken = this.CryptService.decodeToken(userToken);
-      const cashIn: Transactions[] = await this.getCashInTransactions(decodedToken.user)
-      const cashOut: Transactions[] = await this.getCashOutTransactions(decodedToken.user)
+      const cashIn: Transactions[] = await this.getCashInTransactions(
+        decodedToken.user
+      );
+      const cashOut: Transactions[] = await this.getCashOutTransactions(
+        decodedToken.user
+      );
       return { cashIn, cashOut };
     } catch (error) {
       throw new Error(error.message);
@@ -31,15 +35,15 @@ export class GetUserTransactionsUsecase implements IGetUserTransactionsUsecase {
 
   private async getCashInTransactions(user: Users) {
     return this.Transactions.find({
-        where: { creditedAccountId: user },
-        loadRelationIds: true
-      });
+      where: { creditedAccountId: user },
+      relations: ["debitedAccountId"],
+    });
   }
 
   private async getCashOutTransactions(user: Users) {
     return this.Transactions.find({
-        where: { debitedAccountId: user },
-        loadRelationIds: true
-      });
+      relations: ["creditedAccountId"],
+      where: { debitedAccountId: user },
+    });
   }
 }

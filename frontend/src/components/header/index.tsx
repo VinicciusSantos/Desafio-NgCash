@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   }
 
   return (
-    <Container>
+    <Container className='rainbow-background'>
       <LeftSide>
         <img src="../assets/ng-logo.png" width="50px" height="50px" alt="logo" />
         <h1>{ props.title }</h1>
