@@ -4,9 +4,9 @@ import { Container, Main } from './styles';
 
 import Header from '../../components/header';
 import api from '../../api';
-import { RootObject } from '../../interfaces/accounts-interface';
 import BalanceCard from '../../components/balance-card';
 import TransferenceTable from '../../components/transference-table';
+import { RootObject } from '../../interfaces/accounts-interface';
 
 const Home: React.FC = () => {
   const [userData, setUserData] = useState<RootObject>();
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
       <Header title={`Ng Challenge`} />
       <Main>
         <BalanceCard balance={userData?.user.account.balance}></BalanceCard>
-        <TransferenceTable transactions={userData?.transactions}/>
+        <TransferenceTable transactions={userData.transactions}/>
       </Main>
     </Container>
   ) : (

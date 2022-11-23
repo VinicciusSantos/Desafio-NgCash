@@ -1,6 +1,6 @@
+import { Users } from './../../entities/Users';
 import { TransactionsDataRepository } from "../../../data/repositories/transactions-data-source";
 import { Transactions } from "../../entities/Transacrions";
-import { Users } from "../../entities/Users";
 import {
   ICryptService,
   IToken,
@@ -35,15 +35,19 @@ export class GetUserTransactionsUsecase implements IGetUserTransactionsUsecase {
 
   private async getCashInTransactions(user: Users) {
     return this.Transactions.find({
-      where: { creditedAccountId: user },
-      relations: ["debitedAccountId"],
+      where: { creditedAccount: user },
+      relations: {
+        debitedAccount: true,
+      },
     });
   }
 
   private async getCashOutTransactions(user: Users) {
     return this.Transactions.find({
-      relations: ["creditedAccountId"],
-      where: { debitedAccountId: user },
+      relations: {
+        creditedAccount: true
+      },
+      where: { debitedAccount: user },
     });
   }
 }

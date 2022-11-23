@@ -1,5 +1,5 @@
 import { Users } from "./Users";
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany, JoinTable, ManyToOne, JoinColumn } from "typeorm";
 import { IsDate, IsNotEmpty } from "class-validator";
 
 @Entity()
@@ -7,15 +7,15 @@ export class Transactions {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Users)
+  @ManyToOne(() => Users)
   @JoinColumn()
   @IsNotEmpty()
-  debitedAccountId: Users;
+  debitedAccount: Users;
 
-  @OneToOne(() => Users)
+  @ManyToOne(() => Users)
   @JoinColumn()
   @IsNotEmpty()
-  creditedAccountId: Users;
+  creditedAccount: Users;
 
   @Column()
   @IsNotEmpty()

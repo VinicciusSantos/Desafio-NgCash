@@ -19,14 +19,6 @@ export const LeftSide = styled.div`
     display: flex;
 `;
 
-export const NewTrasactionButton = styled.button`
-    padding: 5px 15px;
-    background-color: transparent;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-`;
-
 export const TransactionsTable = styled.table`
     width: 100%;
     text-align: left;

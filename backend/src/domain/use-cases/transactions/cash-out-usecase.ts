@@ -29,13 +29,15 @@ export class CahsOutUsecase implements ICashOutUsecase {
 
             this.checkIfUserIsSelfCashing(decodedToken.user, creditedUser)
             await this.checkIfUserHaveEnougtMoney(decodedToken.user, value)
-            await this.updateUsersBalance(decodedToken.user, creditedUser, value)
 
-            return this.Transactions.save({ 
-                debitedAccountId: decodedToken.user, 
-                creditedAccountId: creditedUser,
+            const transaction = this.Transactions.save({ 
+                debitedAccount: decodedToken.user, 
+                creditedAccount: creditedUser,
                 value
             })
+
+            await this.updateUsersBalance(decodedToken.user, creditedUser, value)
+            return transaction
         } catch (error) {
             throw new Error(error.message)
         }
@@ -78,7 +80,7 @@ export class CahsOutUsecase implements ICashOutUsecase {
         return this.Accounts
                     .createQueryBuilder()
                     .update(accountFromDebitedUser)
-                    .set({ balance: (accountFromDebitedUser.balance - value )})
+                    .set({ balance: (Number(accountFromDebitedUser.balance) - Number(value) )})
                     .where("id = :id", { id: debitedUserId })
                     .execute()
     }
@@ -88,7 +90,7 @@ export class CahsOutUsecase implements ICashOutUsecase {
         return this.Accounts
                     .createQueryBuilder()
                     .update(accountFromCreditedUser)
-                    .set({ balance: (accountFromCreditedUser.balance + value )})
+                    .set({ balance: (Number(accountFromCreditedUser.balance) + Number(value) )})
                     .where("id = :id", { id: creditedUserId })
                     .execute()
     }
