@@ -1,5 +1,5 @@
 import React from 'react';
-import { Transactions } from '../../interfaces/transactions-interface';
+import { Transaction } from '../../interfaces/accounts-interface';
 import TransactionsModal from '../transactions-modal';
 
 import {
@@ -10,10 +10,20 @@ import {
 } from './styles';
 
 export interface TransferenceTableProps {
-  transactions: Transactions;
+  transactions: Transaction[];
 }
 
 const TransferenceTable: React.FC<TransferenceTableProps> = (props) => {
+  const getTransactionType = (transaction: Transaction): string => {
+    if (transaction['creditedAccount']) return 'cashOut'
+    return 'cashIn'
+  }
+
+  const getUsername = (transaction: Transaction): string => {
+    if (transaction['creditedAccount']) return transaction.creditedAccount.username
+    return transaction.debitedAccount.username
+  }
+
   return (
     <Container>
       <Title>
@@ -33,18 +43,10 @@ const TransferenceTable: React.FC<TransferenceTableProps> = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.transactions.cashIn.map((t) => (
+          {props.transactions.map((t: Transaction) => (
             <tr key={ t.id }>
-              <td>CashIn</td>
-              <td>{ t.debitedAccount.username }</td>
-              <td>{ new Date(t.createdAt).toUTCString() }</td>
-              <td>R${ t.value },00</td>
-            </tr>
-          ))}
-          {props.transactions.cashOut.map((t) => (
-            <tr key={ t.id }>
-              <td>CashOut</td>
-              <td>{ t.creditedAccount.username }</td>
+              <td>{ getTransactionType(t) }</td>
+              <td>{ getUsername(t) }</td>
               <td>{ new Date(t.createdAt).toUTCString() }</td>
               <td>R${ t.value },00</td>
             </tr>

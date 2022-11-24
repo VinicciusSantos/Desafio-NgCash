@@ -4,8 +4,8 @@ import { Request, Response } from "express";
 
 export class TransactionsController {
   public async list(req: Request, res: Response) {
-    try { 
-      const data = await new GetUserTransactionsUsecase().execute(req.headers.authorization)
+    try {
+      const data = await new GetUserTransactionsUsecase().execute(req.headers.authorization, req.query)
       return res.status(200).json({ message: `Successfully retrieved user's transactions`, data })
     } catch (err) {
       return res.status(400).json({

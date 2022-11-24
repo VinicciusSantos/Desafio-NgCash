@@ -69,10 +69,8 @@ export class CahsOutUsecase implements ICashOutUsecase {
     }
 
     private async updateUsersBalance(debitedUser: Users, CreditedUser: Users, value: number) {
-        const debitedAccount = await this.updateDebitedUserBalace(debitedUser.id, value)
-        const creditedAccount = await this.updateCreditedUserBalace(CreditedUser.id, value)
-        console.log("🚀 ~ file: cash-out-usecase.ts ~ line 66 ~ CahsOutUsecase ~ updateUsersBalance ~ debitedAccount", debitedAccount)
-        console.log("🚀 ~ file: cash-out-usecase.ts ~ line 68 ~ CahsOutUsecase ~ updateUsersBalance ~ creditedAccount", creditedAccount)
+        await this.updateDebitedUserBalace(debitedUser.id, value)
+        await this.updateCreditedUserBalace(CreditedUser.id, value)
     }
 
     private async updateDebitedUserBalace(debitedUserId: number, value: number) {  
