@@ -2,6 +2,7 @@ import React from 'react';
 import { Transaction } from '../../interfaces/accounts-interface';
 import FilterButton from '../FilterButton';
 import TransactionsModal from '../transactions-modal';
+import CircleIcon from '@mui/icons-material/Circle';
 
 import {
   Container,
@@ -17,9 +18,9 @@ export interface TransferenceTableProps {
 }
 
 const TransferenceTable: React.FC<TransferenceTableProps> = (props) => {
-  const getTransactionType = (transaction: Transaction): string => {
-    if (transaction['creditedAccount']) return 'cashOut'
-    return 'cashIn'
+  const getTransactionType = (transaction: Transaction): any => {
+    if (transaction['creditedAccount']) return <CircleIcon style={{ color: '#ff6666', marginLeft: "10px" }} />
+    return <CircleIcon style={{ color: '#66ff66', marginLeft: "10px" }} />
   }
 
   const getUsername = (transaction: Transaction): string => {

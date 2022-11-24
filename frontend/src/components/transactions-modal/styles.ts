@@ -10,4 +10,7 @@ export const NewTrasactionButton = styled.button`
     border-radius: 10px;
     border: none;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
 `;

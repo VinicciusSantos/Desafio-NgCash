@@ -10,6 +10,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import AddIcon from '@mui/icons-material/Add';
 
 import api from '../../api';
 
@@ -85,7 +86,8 @@ const TransactionsModal: React.FC<TransactionsModalProps> = (props) => {
         className="rainbow-background"
         onClick={handleClickOpen}
       >
-        New Trasaction
+        <span>New Trasaction</span>
+        <AddIcon fontSize="small"/>
       </NewTrasactionButton>
 
       <Dialog open={open} onClose={handleClose}>
