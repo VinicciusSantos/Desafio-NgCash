@@ -1,5 +1,5 @@
 import { Users } from "./Users";
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany, JoinTable, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { IsDate, IsNotEmpty } from "class-validator";
 
 @Entity()

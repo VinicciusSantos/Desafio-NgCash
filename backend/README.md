@@ -37,5 +37,5 @@
 - Receber username de que for receber e valor
 - Usuario não pode transferir para ele mesmo
 - Usuario tem que ter saldo suficiente
-- gravar transação bem sucedida na tabela transacrions
+- gravar transação bem sucedida na tabela transactions
   

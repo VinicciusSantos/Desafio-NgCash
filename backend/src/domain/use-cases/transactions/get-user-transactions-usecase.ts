@@ -1,6 +1,6 @@
 import { Users } from './../../entities/Users';
 import { TransactionsDataRepository } from "../../../data/repositories/transactions-data-source";
-import { Transactions } from "../../entities/Transacrions";
+import { Transactions } from "../../entities/Transactions";
 import {
   ICryptService,
   IToken,
