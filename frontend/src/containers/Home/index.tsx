@@ -11,8 +11,8 @@ import { RootObject } from '../../interfaces/accounts-interface';
 const Home: React.FC = () => {
   const [userData, setUserData] = useState<RootObject>();
 
-  const getUserData = async () => {
-    api.get('/account').then((res) => setUserData(res.data));
+  const getUserData = async (customRoute: string = '/account') => {
+    api.get(customRoute).then((res) => setUserData(res.data));
   };
   if (!userData) getUserData();
 

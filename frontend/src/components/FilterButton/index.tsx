@@ -8,8 +8,34 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 
 import { Container, FiltButton } from './styles';
 
-const FilterButton: React.FC = () => {
+export interface FilterButtonProps {
+  update: Function
+}
+
+const FilterButton: React.FC<FilterButtonProps> = (props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const [filterParams, setFilterParams] = useState({
+    cashIn: true,
+    cashOut: true,
+  });
+
+  const handleChange = (event: any) => {
+    const newParams = {
+      ...filterParams,
+      [event.target.name]: event.target.checked,
+    }
+    console.log("🚀 ~ file: index.tsx ~ line 25 ~ handleChange ~ newParams", newParams)
+    setFilterParams(newParams);
+    sendNewReqWithFilters(newParams)
+  };
+
+  const sendNewReqWithFilters = (params: any) => {
+    if ((params.cashIn && params.cashOut )|| (!params.cashIn && !params.cashOut)) return props.update()
+    params.cashIn
+      ? props.update('/account?filter=cashin')
+      : props.update('/account?filter=cashout')
+  }
 
   const open = Boolean(anchorEl);
 
@@ -30,8 +56,8 @@ const FilterButton: React.FC = () => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-         <span>Filter</span>
-         <FilterListIcon fontSize="small"/>
+        <span>Filter</span>
+        <FilterListIcon fontSize="small" />
       </FiltButton>
 
       <Menu
@@ -45,13 +71,25 @@ const FilterButton: React.FC = () => {
       >
         <MenuItem>
           <FormControlLabel
-            control={<Checkbox defaultChecked />}
+            control={
+              <Checkbox
+                name="cashIn"
+                checked={filterParams.cashIn}
+                onChange={(e) => handleChange(e)}
+              />
+            }
             label="CashIn"
           />
         </MenuItem>
         <MenuItem>
           <FormControlLabel
-            control={<Checkbox defaultChecked />}
+            control={
+              <Checkbox
+                name="cashOut"
+                checked={filterParams.cashOut}
+                onChange={(e) => handleChange(e)}
+              />
+            }
             label="CashOut"
           />
         </MenuItem>

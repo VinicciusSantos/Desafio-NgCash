@@ -35,7 +35,7 @@ const TransferenceTable: React.FC<TransferenceTableProps> = (props) => {
           <h2>Transaction History</h2>
         </LeftSide>
         <RightSide>
-          <FilterButton></FilterButton>
+          <FilterButton update={props.update}></FilterButton>
           <TransactionsModal update={props.update}></TransactionsModal>
         </RightSide>
       </Title>

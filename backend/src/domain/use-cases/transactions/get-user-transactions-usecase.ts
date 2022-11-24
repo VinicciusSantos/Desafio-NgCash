@@ -21,40 +21,37 @@ export class GetUserTransactionsUsecase implements IGetUserTransactionsUsecase {
     let decodedToken!: IToken | any;
     try {
       decodedToken = this.CryptService.decodeToken(userToken);
-      let orderParams: any = this.generateOrderParams(queries)
-      let transactions = await this.getAllTransactions(decodedToken, orderParams)
+      let transactions = await this.getAllTransactions(decodedToken)
+
+      if (queries.filter) {
+        return String(queries.filter).toLowerCase() === 'cashin'
+          ? transactions.cashIn
+          : transactions.cashOut
+      }
+      
       return this.mergeAndSortTransactions(transactions)
     } catch (error) {
       throw new Error(error.message);
     }
   }
 
-  private generateOrderParams(queries: querieParams) {
-    let orderParams = {};
-    if (!queries) return { id: "ASC" }
-    orderParams[String(queries.order)] = queries.desc === "false" ? "ASC" : "DESC";
-    return orderParams
-  }
-
-  private async getAllTransactions(decodedToken: IToken, orderParams: any) {
-    const cashIn: Transactions[] = await this.getCashInTransactions(decodedToken.user, orderParams);
-    const cashOut: Transactions[] = await this.getCashOutTransactions(decodedToken.user, orderParams);
+  private async getAllTransactions(decodedToken: IToken) {
+    const cashIn: Transactions[] = await this.getCashInTransactions(decodedToken.user);
+    const cashOut: Transactions[] = await this.getCashOutTransactions(decodedToken.user);
     return { cashIn, cashOut }
   }
 
-  private async getCashInTransactions(user: Users, orderParams: any) {
+  private async getCashInTransactions(user: Users) {
     return this.Transactions.find({
       where: { creditedAccount: user },
       relations: { debitedAccount: true },
-      order: orderParams,
     });
   }
 
-  private async getCashOutTransactions(user: Users, orderParams: any) {
+  private async getCashOutTransactions(user: Users) {
     return this.Transactions.find({
       relations: { creditedAccount: true },
       where: { debitedAccount: user },
-      order: orderParams,
     });
   }
 
