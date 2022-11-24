@@ -37,3 +37,12 @@ export const TransactionsTable = styled.table`
         padding: 5px;
     }
 `;
+
+export const EmptyState = styled.div`
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;

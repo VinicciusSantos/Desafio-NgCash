@@ -10,6 +10,7 @@ import {
   LeftSide,
   RightSide,
   TransactionsTable,
+  EmptyState,
 } from './styles';
 
 export interface TransferenceTableProps {
@@ -19,14 +20,16 @@ export interface TransferenceTableProps {
 
 const TransferenceTable: React.FC<TransferenceTableProps> = (props) => {
   const getTransactionType = (transaction: Transaction): any => {
-    if (transaction['creditedAccount']) return <CircleIcon style={{ color: '#ff6666', marginLeft: "10px" }} />
-    return <CircleIcon style={{ color: '#66ff66', marginLeft: "10px" }} />
-  }
+    if (transaction['creditedAccount'])
+      return <CircleIcon style={{ color: '#ff6666', marginLeft: '10px' }} />;
+    return <CircleIcon style={{ color: '#66ff66', marginLeft: '10px' }} />;
+  };
 
   const getUsername = (transaction: Transaction): string => {
-    if (transaction['creditedAccount']) return transaction.creditedAccount.username
-    return transaction.debitedAccount.username
-  }
+    if (transaction['creditedAccount'])
+      return transaction.creditedAccount.username;
+    return transaction.debitedAccount.username;
+  };
 
   return (
     <Container>
@@ -51,15 +54,21 @@ const TransferenceTable: React.FC<TransferenceTableProps> = (props) => {
         </thead>
         <tbody>
           {props.transactions.map((t: Transaction) => (
-            <tr key={ t.id }>
-              <td>{ getTransactionType(t) }</td>
-              <td>{ getUsername(t) }</td>
-              <td>{ new Date(t.createdAt).toUTCString() }</td>
-              <td>R${ t.value }</td>
+            <tr key={t.id}>
+              <td>{getTransactionType(t)}</td>
+              <td>{getUsername(t)}</td>
+              <td>{new Date(t.createdAt).toUTCString()}</td>
+              <td>R${t.value}</td>
             </tr>
           ))}
         </tbody>
       </TransactionsTable>
+        {props.transactions.length === 0 && (
+          <EmptyState>
+            <img src="../assets/empty-state.png" alt="empty state" />
+            <p>No transactions Found</p>
+          </EmptyState>
+        )}
     </Container>
   );
 };

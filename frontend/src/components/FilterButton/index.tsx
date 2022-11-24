@@ -31,7 +31,8 @@ const FilterButton: React.FC<FilterButtonProps> = (props) => {
   };
 
   const sendNewReqWithFilters = (params: any) => {
-    if ((params.cashIn && params.cashOut )|| (!params.cashIn && !params.cashOut)) return props.update()
+    if (params.cashIn && params.cashOut) return props.update()
+    if (!params.cashIn && !params.cashOut) return props.update('')
     params.cashIn
       ? props.update('/account?filter=cashin')
       : props.update('/account?filter=cashout')

@@ -12,6 +12,15 @@ const Home: React.FC = () => {
   const [userData, setUserData] = useState<RootObject>();
 
   const getUserData = async (customRoute: string = '/account') => {
+    if (customRoute === '') {
+      setUserData((previusValue: any) => {
+        return {
+          ...previusValue,
+          transactions: []
+        }
+      })
+      return
+    } 
     api.get(customRoute).then((res) => setUserData(res.data));
   };
   if (!userData) getUserData();
