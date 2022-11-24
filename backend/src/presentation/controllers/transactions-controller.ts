@@ -1,4 +1,4 @@
-import { CahsOutUsecase } from './../../domain/use-cases/transactions/cash-out-usecase';
+import { CashOutUsecase } from './../../domain/use-cases/transactions/cash-out-usecase';
 import { GetUserTransactionsUsecase } from './../../domain/use-cases/transactions/get-user-transactions-usecase';
 import { Request, Response } from "express";
 
@@ -17,8 +17,8 @@ export class TransactionsController {
 
   public async cashOut(req: Request, res: Response) {
     try { 
-      const data = await new CahsOutUsecase().execute(req.headers.authorization, req.body.creditedUsername, req.body.value)
-      return res.status(201).json({ message: `Successfully retrieved data`, data })
+      const data = await new CashOutUsecase().execute(req.headers.authorization, req.body.creditedUsername, req.body.value)
+      return res.status(201).json({ message: `Transaction sucessfully done`, data })
     } catch (err) {
       return res.status(400).json({
         message: 'Could not do this transaction',

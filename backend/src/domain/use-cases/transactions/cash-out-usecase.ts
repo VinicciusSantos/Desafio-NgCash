@@ -7,7 +7,7 @@ import { UsersDataRepository } from '../../../data/repositories/users-data-sourc
 import { Users } from '../../entities/Users';
 import { AccountsDataRepository } from '../../../data/repositories/accounts-data-source';
 
-export class CahsOutUsecase implements ICashOutUsecase {
+export class CashOutUsecase implements ICashOutUsecase {
     private Transactions: typeof TransactionsDataRepository
     private CryptService: ICryptService
     private Users: typeof UsersDataRepository;

@@ -19,6 +19,10 @@ export const LeftSide = styled.div`
     display: flex;
 `;
 
+export const RightSide = styled.div`
+    display: flex;
+`;
+
 export const TransactionsTable = styled.table`
     width: 100%;
     text-align: left;

@@ -21,7 +21,7 @@ const Home: React.FC = () => {
       <Header title={`Ng Challenge`} />
       <Main>
         <BalanceCard balance={userData?.user.account.balance}></BalanceCard>
-        <TransferenceTable transactions={userData.transactions}/>
+        <TransferenceTable transactions={userData.transactions} update={getUserData}/>
       </Main>
     </Container>
   ) : (

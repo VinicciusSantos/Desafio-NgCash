@@ -13,7 +13,11 @@ import Alert from '@mui/material/Alert';
 
 import api from '../../api';
 
-const TransactionsModal: React.FC = () => {
+interface TransactionsModalProps {
+  update: Function
+}
+
+const TransactionsModal: React.FC<TransactionsModalProps> = (props) => {
   const [open, setOpen] = React.useState(false);
   const [transactionsData, setTransactionsData] = useState({
     creditedUsername: '',
@@ -63,6 +67,7 @@ const TransactionsModal: React.FC = () => {
             hideDuration: 3000,
           });
           handleClose()
+          props.update()
         })
         .catch((err) => {
           setSnackbarInfos({

@@ -1,16 +1,19 @@
 import React from 'react';
 import { Transaction } from '../../interfaces/accounts-interface';
+import FilterButton from '../FilterButton';
 import TransactionsModal from '../transactions-modal';
 
 import {
   Container,
   Title,
   LeftSide,
+  RightSide,
   TransactionsTable,
 } from './styles';
 
 export interface TransferenceTableProps {
   transactions: Transaction[];
+  update: Function;
 }
 
 const TransferenceTable: React.FC<TransferenceTableProps> = (props) => {
@@ -30,7 +33,10 @@ const TransferenceTable: React.FC<TransferenceTableProps> = (props) => {
         <LeftSide>
           <h2>Transaction History</h2>
         </LeftSide>
-        <TransactionsModal></TransactionsModal>
+        <RightSide>
+          <FilterButton></FilterButton>
+          <TransactionsModal update={props.update}></TransactionsModal>
+        </RightSide>
       </Title>
 
       <TransactionsTable>
@@ -48,7 +54,7 @@ const TransferenceTable: React.FC<TransferenceTableProps> = (props) => {
               <td>{ getTransactionType(t) }</td>
               <td>{ getUsername(t) }</td>
               <td>{ new Date(t.createdAt).toUTCString() }</td>
-              <td>R${ t.value },00</td>
+              <td>R${ t.value }</td>
             </tr>
           ))}
         </tbody>
