@@ -1,9 +1,0 @@
-{
-  "devDependencies": {
-    "@types/jsonwebtoken": "^8.5.9",
-    "class-validator": "^0.13.2"
-  },
-  "dependencies": {
-    "jsonwebtoken": "^8.5.1"
-  }
-}
