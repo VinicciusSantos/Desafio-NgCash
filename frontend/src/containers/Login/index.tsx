@@ -36,9 +36,9 @@ const Login: React.FC = () => {
     api
       .post('/auth/login', loginData)
       .then((res: any) => {
-        console.log(res);
         localStorage.setItem('token', res.data.token);
-        navigate('/')
+        api.defaults.headers.Authorization = res.data.token
+        setTimeout(() =>{ navigate('/')}, 500)
       })
       .catch((err: any) => {
         setSnackbarInfos({
