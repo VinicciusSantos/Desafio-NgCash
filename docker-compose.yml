@@ -27,6 +27,7 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
+      - SECRET=fasdgf98dahgdas@e43
   client:
     stdin_open: true
     environment:
