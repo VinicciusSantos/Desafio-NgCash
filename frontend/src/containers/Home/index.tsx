@@ -9,12 +9,22 @@ import TransferenceTable from '../../components/transference-table';
 import { RootObject } from '../../interfaces/accounts-interface';
 
 const Home: React.FC = () => {
-  const [userData, setUserData] = useState<RootObject>();
+  const [userData, setUserData] = useState<RootObject | any>();
 
   const getUserData = async (customRoute: string = '/account') => {
+    if (customRoute === '') return filltWithNoTransactions()
     api.get(customRoute).then((res) => setUserData(res.data));
   };
   if (!userData) getUserData();
+
+  const filltWithNoTransactions = () => {
+    setUserData((previusValue: any) => {
+      return {
+        ...previusValue,
+        transactions: []
+      }
+    })
+  }
 
   return userData ? (
     <Container>
