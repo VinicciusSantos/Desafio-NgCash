@@ -35,12 +35,12 @@ const Login: React.FC = () => {
     e.preventDefault();
     api
       .post('/auth/login', loginData)
-      .then((res) => {
+      .then((res: any) => {
         console.log(res);
         localStorage.setItem('token', res.data.token);
         navigate('/')
       })
-      .catch((err) => {
+      .catch((err: any) => {
         setSnackbarInfos({
           isOpen: true,
           message: err.response.data.error,
@@ -65,7 +65,7 @@ const Login: React.FC = () => {
           name="username"
           label="Username"
           value={loginData.username}
-          onChange={(e) => handleChange(e)}
+          onChange={(e: any) => handleChange(e)}
           variant="outlined"
         />
         <StyledTextField
@@ -74,7 +74,7 @@ const Login: React.FC = () => {
           label="Password"
           type="password"
           value={loginData.password}
-          onChange={(e) => handleChange(e)}
+          onChange={(e: any) => handleChange(e)}
           variant="outlined"
         />
         <SubmitButton onClick={(e: any) => onSubmit(e)}>Login</SubmitButton>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { Container, Main } from './styles';
 
 import Header from '../../components/header';
@@ -10,10 +10,18 @@ import { RootObject } from '../../interfaces/accounts-interface';
 
 const Home: React.FC = () => {
   const [userData, setUserData] = useState<RootObject | any>();
+  const [renderData, setRenderData] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const getUserData = async (customRoute: string = '/account') => {
     if (customRoute === '') return filltWithNoTransactions()
-    api.get(customRoute).then((res) => setUserData(res.data));
+    api
+      .get(customRoute)
+      .then((res: any) => {
+        setUserData(res.data)
+        setRenderData(true)
+      })
+      .catch((err: any) => { navigate('/login') });
   };
   if (!userData) getUserData();
 
@@ -26,7 +34,7 @@ const Home: React.FC = () => {
     })
   }
 
-  return userData ? (
+  return renderData ?
     <Container>
       <Header title={`Ng Challenge`} />
       <Main>
@@ -34,9 +42,10 @@ const Home: React.FC = () => {
         <TransferenceTable transactions={userData.transactions} update={getUserData}/>
       </Main>
     </Container>
-  ) : (
-    <></>
-  );
+  :
+    <Container style={{ justifyContent: "center" }}>
+      <img src="../Syncronize.png" alt="syncronizing" />
+    </Container>
 };
 
 export default Home;
